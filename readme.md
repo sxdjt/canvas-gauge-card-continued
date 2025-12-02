@@ -47,7 +47,7 @@ If you want to support the developer, please support the lib devs of the canvas-
 
 ## Screens
 
-Here is a some different screens from my own setup. But the possibilites to make your own look and feel are great.
+Here are some different screens showing the gauge capabilities. 
 
 <a href="docs/screen_1.png" target="_blank"><img src="docs/screen_1.png"  width="254" height="204"/></a>
 <a href="docs/screen_2.png" target="_blank"><img src="docs/screen_2.png"  width="250" height="244"/></a>
@@ -332,3 +332,4 @@ Please see [CLAUDE.md](CLAUDE.md) for development guidelines and contribution pr
 ---
 
 **If you want to support the original developer and the canvas-gauges library, please visit their repositories and star them.**
+
