@@ -1,7 +1,7 @@
 {
-  "name": "canvas-gauge-card",
-  "version": "0.9.0",
-  "description": "Lovelace canvas-gauge-card",
+  "name": "canvas-gauge-card-continued",
+  "version": "1.0.0-continued",
+  "description": "Home Assistant Lovelace custom card for gauges (Continued)",
   "keywords": [
     "home-assistant",
     "homeassistant",
@@ -9,11 +9,20 @@
     "automation",
     "lovelace",
     "custom-cards",
-    "canvas-gauge"
+    "canvas-gauge",
+    "continued",
+    "community-maintained"
   ],
   "module": "canvas-gauge-card.js",
-  "repository": "git@github.com:custom_cards/canvas-gauge-card.git",
-  "author": "@helto4real",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sxdjt/canvas-gauge-card-continued.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sxdjt/canvas-gauge-card-continued/issues"
+  },
+  "homepage": "https://github.com/sxdjt/canvas-gauge-card-continued#readme",
+  "author": "Original: @helto4real | Continued: Community",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.21.4",

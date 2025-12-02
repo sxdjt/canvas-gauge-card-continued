@@ -1,5 +1,6 @@
 {
-  "name": "Canvas Gauge Card",
+  "name": "Canvas Gauge Card - Continued",
   "render_readme": true,
-  "filename": "canvas-gauge-card.js"
+  "filename": "canvas-gauge-card.js",
+  "homeassistant": "2023.1.0"
 }

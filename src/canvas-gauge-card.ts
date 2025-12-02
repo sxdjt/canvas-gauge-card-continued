@@ -87,8 +87,8 @@ console.info(
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
   type: "canvas-gauge-card",
-  name: "Canvas Gauge Card",
-  description: "A canvas gauge card from http://canvas-gauges.com/",
+  name: "Canvas Gauge Card - Continued",
+  description: "Community-maintained canvas gauge card from http://canvas-gauges.com/",
 });
 
 @customElement("canvas-gauge-card")
