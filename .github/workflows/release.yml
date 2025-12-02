@@ -9,22 +9,24 @@ jobs:
     name: Prepare release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      # Build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build the file
-        run: |
-          cd /home/runner/work/canvas-gauge-card/canvas-gauge-card
-          npm install
-          npm run build
+        run: npm run build
 
-      # Upload build file to the releas as an asset.
-      - name: Upload zip to release
-        uses: svenstaro/upload-release-action@v1-release
-
+      - name: Upload built file to release
+        uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/canvas-gauge-card/canvas-gauge-card/dist/canvas-gauge-card.js
+          file: dist/canvas-gauge-card.js
           asset_name: canvas-gauge-card.js
           tag: ${{ github.ref }}
           overwrite: true

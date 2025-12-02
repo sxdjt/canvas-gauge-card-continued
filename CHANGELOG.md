@@ -29,6 +29,17 @@ This continuation was created to:
 
 **No functional changes** - This release is functionally identical to the original v0.91 release. The primary changes are:
 
+##### Security & Dependencies
+- Fixed high severity XSS vulnerability (Rollup 2.79.1 → 2.79.2)
+- Resolved deprecated dependency warnings (inflight, glob)
+- Updated all npm dependencies to latest compatible versions
+
+##### GitHub Actions Workflows
+- Updated actions to latest versions (checkout@v4, setup-node@v4)
+- Added Node.js 18 and npm caching for faster builds
+- Fixed hardcoded paths in release workflow for correct repository
+- Improved build reliability and security
+
 ##### Repository & Distribution
 - Forked from [custom-cards/canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card)
 - Renamed to `canvas-gauge-card-continued` for clarity
