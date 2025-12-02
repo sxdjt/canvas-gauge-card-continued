@@ -26,12 +26,12 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.21.4",
-    "@rollup/plugin-babel": "6.0.3",
-    "@rollup/plugin-commonjs": "24.0.1",
-    "@rollup/plugin-json": "6.0.0",
-    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "rollup": "^2.79.2",
-    "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
