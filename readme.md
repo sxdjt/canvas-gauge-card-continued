@@ -5,7 +5,7 @@
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://github.com/hacs/integration)
 
 > **Community-Maintained Continuation**
-> This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which was deprecated in 2025.
+> This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
 
 ---
 
@@ -15,13 +15,14 @@ The original canvas-gauge-card was officially deprecated with this message:
 > "This card is basically deprecated and do not expect maintainence."
 
 This **Continued** version exists to:
+
 - **Maintain compatibility** with current and future Home Assistant versions
 - **Fix bugs** inherited from the original project
 - **Keep HACS distribution active** for the community
 - **Accept community contributions** and improvements
 - **Preserve the excellent work** of the original authors
 
-**Migration from original:** If you're using the original `canvas-gauge-card`, migration is seamless - simply install this version via HACS and your existing configurations will continue to work.
+**Migration from original:** If you're using the original `canvas-gauge-card`, migration is seamless - simply install this version and your existing configurations will continue to work.
 
 ---
 
@@ -35,17 +36,15 @@ This card allows you to use the awesome gauges at https://canvas-gauges.com/ in 
 
 Here are some different screens showing the gauge capabilities. 
 
+<a href="docs/new_screen.png" target="_blank"><img src="docs/screen_1.png" /></a>
 <a href="docs/screen_1.png" target="_blank"><img src="docs/screen_1.png"  width="254" height="204"/></a>
 <a href="docs/screen_2.png" target="_blank"><img src="docs/screen_2.png"  width="250" height="244"/></a>
 
 ## Installation
 
-
-
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sxdjt&repository=canvas-gauge-card-continued)
 
-
-Use the javascript names of properties from the examples at https://canvas-gauges.com/documentation/examples/. Click on an example that you like, check the JS version and copy the properties to the lovelace yaml file. Just remove the ',' after copy from site.
+Use the javascript names of properties from the examples at https://canvas-gauges.com/documentation/examples/. Click on an example that you like, check the JS version and copy the properties to the card configuration. Just remove the ',' after copy from site.
 
 ### Example 1, simple half gauge
 
@@ -266,8 +265,6 @@ Contributions are welcome! This is a community-maintained project.
 - **Feature requests**: [Open an issue](https://github.com/sxdjt/canvas-gauge-card-continued/issues)
 - **Pull requests**: [Submit a PR](https://github.com/sxdjt/canvas-gauge-card-continued/pulls)
 
-Please see [CLAUDE.md](CLAUDE.md) for development guidelines and contribution process.
-
 ---
 
 ## Credits & Attribution
@@ -289,8 +286,4 @@ Please see [CLAUDE.md](CLAUDE.md) for development guidelines and contribution pr
 ### Related Repositories
 - [helto4real's original custom cards collection](https://github.com/helto4real/lovelace-custom-cards)
 - [helto4real's Home Assistant configuration](https://github.com/helto4real/hassio)
-
----
-
-**If you want to support the original developer and the canvas-gauges library, please visit their repositories and star them.**
 
