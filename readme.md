@@ -36,7 +36,8 @@ This card allows you to use the awesome gauges at https://canvas-gauges.com/ in 
 
 Here are some different screens showing the gauge capabilities. 
 
-<a href="docs/new_screen.png" target="_blank"><img src="docs/screen_1.png" /></a>
+<a href="docs/new_screen.png" target="_blank"><img src="docs/new_screen.png" /></a>
+
 <a href="docs/screen_1.png" target="_blank"><img src="docs/screen_1.png"  width="254" height="204"/></a>
 <a href="docs/screen_2.png" target="_blank"><img src="docs/screen_2.png"  width="250" height="244"/></a>
 
@@ -286,4 +287,5 @@ Contributions are welcome! This is a community-maintained project.
 ### Related Repositories
 - [helto4real's original custom cards collection](https://github.com/helto4real/lovelace-custom-cards)
 - [helto4real's Home Assistant configuration](https://github.com/helto4real/hassio)
+
 
