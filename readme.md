@@ -31,21 +31,7 @@ This card allows you to use the awesome gauges at https://canvas-gauges.com/ in 
 
 **Tested on:** Chrome, Safari, Firefox, and Home Assistant Companion apps
 
----
-
-## Development
-I recommend use vscode devcontainers. do 
-```shell
-npm install
-npm run build
-```
-Inside container you can build, start HA using vscode tasks.
-
-This card allows you to use the awesome gauges at https://canvas-gauges.com/ in your lovelace GUI. This is still a very early and untested alpha version. Tested only on chrome and safari browsers.
-
-If you want to support the developer, please support the lib devs of the canvas-gauges.
-
-## Screens
+## Screenshots
 
 Here are some different screens showing the gauge capabilities. 
 
@@ -54,35 +40,10 @@ Here are some different screens showing the gauge capabilities.
 
 ## Installation
 
-### Option 1: HACS (Recommended)
 
-1. Open HACS in your Home Assistant instance
-2. Click on "Frontend"
-3. Click the menu icon (three dots) in the top right
-4. Select "Custom repositories"
-5. Add `https://github.com/sxdjt/canvas-gauge-card-continued` as a Lovelace plugin
-6. Click "Canvas Gauge Card - Continued" in the list
-7. Click "Download"
 
-### Option 2: Manual Installation
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sxdjt&repository=canvas-gauge-card-continued)
 
-1. Download the file `canvas-gauge-card.js` from the [**latest release**](https://github.com/sxdjt/canvas-gauge-card-continued/releases/latest)
-2. Copy it to your Home Assistant config directory:
-   - Typically: `/config/www/community/canvas-gauge-card-continued/`
-3. Add a resource in your Lovelace configuration:
-
-```yaml
-resources:
-  - url: /local/community/canvas-gauge-card-continued/canvas-gauge-card.js
-    type: module
-```
-
-4. Restart Home Assistant
-5. Clear your browser cache
-
-Configure the card properties.
-
-Skip `name`property if you dont want the name with the shadow area to show.
 
 Use the javascript names of properties from the examples at https://canvas-gauges.com/documentation/examples/. Click on an example that you like, check the JS version and copy the properties to the lovelace yaml file. Just remove the ',' after copy from site.
 

@@ -13,6 +13,7 @@ export default [
     },
 
     plugins: [nodeResolve({}), commonjs(), typescript(), json(), babel({
+      babelHelpers: 'bundled',
       exclude: "node_modules/**",
     })],
   },
