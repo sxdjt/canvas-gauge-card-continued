@@ -1,8 +1,8 @@
 # Canvas Gauge Card - Continued
 
-[![GitHub Release](https://img.shields.io/github/release/sxdjt/canvas-gauge-card-continued.svg?style=flat-square)](https://github.com/sxdjt/canvas-gauge-card-continued/releases)
-[![License](https://img.shields.io/github/license/sxdjt/canvas-gauge-card-continued.svg?style=flat-square)](LICENSE)
-[![AI Assisted](https://img.shields.io/badge/AI-Claude%20Code-AAAAAA.svg)](https://claude.ai/code)
+![GitHub Release](https://img.shields.io/github/v/release/sxdjt/canvas-gauge-card-continued?style=for-the-badge)
+[![AI Assisted](https://img.shields.io/badge/AI-Claude%20Code-AAAAAA.svg?style=for-the-badge)](https://claude.ai/code)
+![GitHub License](https://img.shields.io/github/license/sxdjt/canvas-gauge-card-continued?style=for-the-badge)
 
 > **Community-Maintained Continuation**
 > This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
