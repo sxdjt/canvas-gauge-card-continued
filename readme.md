@@ -4,8 +4,9 @@
 [![AI Assisted](https://img.shields.io/badge/AI-Claude%20Code-AAAAAA.svg?style=for-the-badge)](https://claude.ai/code)
 ![GitHub License](https://img.shields.io/github/license/sxdjt/canvas-gauge-card-continued?style=for-the-badge)
 
-> **Community-Maintained Continuation**
-> This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
+ **Community-Maintained Continuation**
+
+ This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
 
 ---
 
@@ -287,6 +288,7 @@ Contributions are welcome! This is a community-maintained project.
 ### Related Repositories
 - [helto4real's original custom cards collection](https://github.com/helto4real/lovelace-custom-cards)
 - [helto4real's Home Assistant configuration](https://github.com/helto4real/hassio)
+
 
 
 
