@@ -1,9 +1,0 @@
-/*.*
-!.gitignore
-!*.yaml
-
-www/custom_cards/*.*
-!*.md
-blueprints
-deps
-tts
