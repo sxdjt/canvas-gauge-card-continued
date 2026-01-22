@@ -4,16 +4,11 @@
 [![AI Assisted](https://img.shields.io/badge/AI-Claude%20Code-AAAAAA.svg?style=for-the-badge)](https://claude.ai/code)
 ![GitHub License](https://img.shields.io/github/license/sxdjt/horizontal-waterfall-history-card?style=for-the-badge)
 
- **Community-Maintained Continuation**
-
- This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
-
 ---
 
 ## About This Continuation
 
-The original canvas-gauge-card was officially deprecated with this message:
-> "This card is basically deprecated and do not expect maintainence."
+This is a continuation of the original [canvas-gauge-card](https://github.com/custom-cards/canvas-gauge-card) by [@helto4real](https://github.com/helto4real) and the custom-cards team, which has been deprecated.
 
 This **Continued** version exists to:
 
@@ -29,73 +24,28 @@ This **Continued** version exists to:
 
 ## What is Canvas Gauge Card?
 
-This card allows you to use the awesome gauges at https://canvas-gauges.com/ in your Home Assistant Lovelace UI. Display radial and linear gauges with extensive customization options for monitoring sensors, system metrics, and more.
-
-**Tested on:** Chrome, Safari, Firefox, and Home Assistant Companion apps
-
-## Screenshots
-
-Here are some different screens showing the gauge capabilities. 
-
-<a href="docs/new_screen.png" target="_blank"><img src="docs/new_screen.png" /></a>
-
-<a href="docs/screen_1.png" target="_blank"><img src="docs/screen_1.png"  width="254" height="204"/></a>
-<a href="docs/screen_2.png" target="_blank"><img src="docs/screen_2.png"  width="250" height="244"/></a>
+This card allows you to use the awesome gauges at [https://canvas-gauges.com/](https://canvas-gauges.com/documentation/user-guide/configuration) in your Home Assistant Lovelace UI. Display radial and linear gauges with extensive customization options for monitoring sensors, system metrics, and more.
 
 ## Installation
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=sxdjt&repository=canvas-gauge-card-continued)
 
-Use the javascript names of properties from the examples at https://canvas-gauges.com/documentation/examples/. Click on an example that you like, check the JS version and copy the properties to the card configuration. Just remove the ',' after copy from site.
+### Examples
 
-### Example 1, simple half gauge
+See [Canvas Gauges](https://canvas-gauges.com/) for more examples and configurations.  
 
-<img src="docs/screen_sample2.png"  width="230" height="130"/>
+#### Simple Gauge
 
-**ui-lovelace.yaml:**
-
-_Notice the differences in `card_height` and `gauge/height` to get correct half size for full circle, set both to same._
+<img width="540" height="308" alt="Example1" src="https://github.com/user-attachments/assets/17362aea-5522-457a-945f-1e477c86c45c" />
 
 ```yaml
-- type: custom:canvas-gauge-card
-  entity: sensor.processor_use
-  card_height: 125
-  gauge:
-    type: "radial-gauge"
-    title: Processor (%)
-    width: 220
-    height: 220
-    borderShadowWidth: 0
-    borderOuterWidth: 0
-    borderMiddleWidth: 0
-    borderInnerWidth: 0
-    minValue: 0
-    maxValue: 100
-    startAngle: 30
-    ticksAngle: 180
-    valueBox: false
-    majorTicks:
-      ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
-    minorTicks: 2
-    strokeTicks: true
-    highlights: [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }]
-    borders: false
-```
-
-### Example 2, simple half gauge with shadow text
-
-<img src="docs/screen_sample1.png"  width="242" height="165"/>
-
-**ui-lovelace.yaml:**
-
-```yaml
-- type: custom:canvas-gauge-card
-  entity: sensor.processor_use
-  name: Processor (%)
-  card_height: 145
-  shadow_height: 15%
-  font_size: 1em
-  gauge:
+type: custom:canvas-gauge-card
+entity: sensor.cpu_utilization
+name: Processor (%)
+card_height: 145
+shadow_height: 15%
+font_size: 1em
+gauge:
     type: "radial-gauge"
     width: 220
     height: 220
@@ -116,132 +66,7 @@ _Notice the differences in `card_height` and `gauge/height` to get correct half 
     borders: false
 ```
 
-### Example 3, simple full gauge with shadow text
-
-<img src="docs/screen_sample3.png"  width="234" height="221"/>
-
-**ui-lovelace.yaml:**
-
-```yaml
-- type: custom:canvas-gauge-card
-  entity: sensor.processor_use
-  name: Processor (%)
-  card_height: 210
-  shadow_height: 12%
-  font_size: 1em
-  gauge:
-    type: "radial-gauge"
-    width: 220
-    height: 220
-    borderShadowWidth: 0
-    borderOuterWidth: 0
-    borderMiddleWidth: 0
-    borderInnerWidth: 0
-    minValue: 0
-    maxValue: 100
-    startAngle: 40
-    ticksAngle: 280
-    valueBox: false
-    units: "%"
-    majorTicks:
-      ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
-    minorTicks: 2
-    strokeTicks: true
-    highlights: [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }]
-    borders: false
-```
-
-### Example 4, 4 gauges in a row in a horizontal-stack
-
-<img src="docs/screen_sample4.png"  width="505" height="95"/>
-This example shows gauges with or without text. This text are placed below the actual gauge this time.
-
-**No text version**
-
-```yaml
----
-- type: horizontal-stack
-  cards:
-    - type: custom:canvas-gauge-card
-      entity: sensor.load_1m
-      card_height: 62
-      background_color: "#FFF"
-      gauge:
-        type: "radial-gauge"
-        borderShadowWidth: 0
-        borderOuterWidth: 0
-        borderMiddleWidth: 0
-        borderInnerWidth: 0
-        width: 110
-        height: 110
-        minValue: 0
-        maxValue: 100
-        startAngle: 90
-        ticksAngle: 180
-        valueBox: false
-        majorTicks:
-          ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
-        minorTicks: 2
-        strokeTicks: true
-        highlights:
-          [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }]
-        colorPlate: "#ddd"
-        borders: false
-        needleType: "arrow"
-        needleWidth: 2
-        needleCircleSize: 7
-        needleCircleOuter: true
-        needleCircleInner: false
-        animationDuration: 1500
-        animationRule: "linear"
-```
-
-**With text version**
-
-```yaml
----
-- type: horizontal-stack
-  cards:
-    - type: custom:canvas-gauge-card
-      entity: sensor.processor_use
-      card_height: 62
-      name: "Processor use"
-      shadow_height: "25%"
-      font_size: 0.9em
-      shadow_bottom: "20"
-      gauge:
-        type: "radial-gauge"
-        width: 110
-        height: 110
-        borderShadowWidth: 0
-        borderOuterWidth: 0
-        borderMiddleWidth: 0
-        borderInnerWidth: 0
-        minValue: 0
-        maxValue: 100
-        startAngle: 90
-        ticksAngle: 180
-        valueBox: false
-        majorTicks:
-          ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
-        minorTicks: 2
-        strokeTicks: true
-        highlights:
-          [{ "from": 80, "to": 100, "color": "rgba(200, 50, 50, .75)" }]
-        colorPlate: "#ddd"
-        borders: false
-        needleType: "arrow"
-        needleWidth: 2
-        needleCircleSize: 7
-        needleCircleOuter: true
-        needleCircleInner: false
-        animationDuration: 1500
-        animationRule: "linear"
-```
-
-### Properties
-
-Some of the properties that could be set. _italic_ is not mandatory.
+### Configuration
 
 | Property           | Description                                                                                                                        |
 | :----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -257,7 +82,7 @@ Some of the properties that could be set. _italic_ is not mandatory.
 | _shadow_height_    | xx% of total height is shadow height                                                                                               |
 | _shadow_bottom_    | how far below the gauge in pixels the shadow should apear                                                                          |
 
-For a complete documentation of available properties, please see https://canvas-gauges.com/documentation/user-guide/configuration
+For a complete documentation of available properties, please see [Canvas Gauges](https://canvas-gauges.com/documentation/user-guide/configuration).
 
 ## Contributing
 
@@ -288,8 +113,5 @@ Contributions are welcome! This is a community-maintained project.
 ### Related Repositories
 - [helto4real's original custom cards collection](https://github.com/helto4real/lovelace-custom-cards)
 - [helto4real's Home Assistant configuration](https://github.com/helto4real/hassio)
-
-
-
 
 
