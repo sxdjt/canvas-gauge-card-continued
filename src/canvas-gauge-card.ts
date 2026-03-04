@@ -80,8 +80,8 @@ console.info(
   `%c  CANVAS-GAUGE-CARD \n%c  ${localize(
     "common.version"
   )} ${CARD_VERSION}    `,
-  "color: orange; font-weight: bold; background: black",
-  "color: white; font-weight: bold; background: dimgray"
+  "color: black; background: #F2720C; font-weight: 600;",
+  "color: black; background: #00a5c9; font-weight: 600;"
 );
 
 (window as any).customCards = (window as any).customCards || [];
