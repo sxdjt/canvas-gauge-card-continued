@@ -16,9 +16,9 @@ Known issues inherited from the original [canvas-gauge-card](https://github.com/
 
 - [ ] Mobile app (HA Companion) refresh issues (original #59)
 - [ ] Template support for value-text formatting (original #60)
-- [ ] Stacked cards support (original #69)
+- [X] Stacked cards support (original #69) # Was not an issue, just a comment
 - [ ] Right-facing half radial gauge support (original #9)
 
 ## Current Repository Issues
 
-- [ ] Missing images in documentation (#2)
+- [X] Missing images in documentation (#2)
