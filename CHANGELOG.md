@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0-beta.1] - 2026-03-31
+
+### Changed
+- Migrated from Lit 2.7.2 to Lit 3.3.2
+  - Updated import paths: decorators (`customElement`, `property`, `query`) moved
+    from `"lit-element"` to `"lit/decorators.js"` per Lit 3 module structure
+  - Core imports (`LitElement`, `html`, `css`, `CSSResult`, `TemplateResult`,
+    `PropertyValues`) moved from `"lit-element"` to `"lit"`
+- Updated `home-assistant-js-websocket` from 8.0.1 to 9.6.0
+- Updated build tooling:
+  - `rollup` 2.79.2 -> 4.60.1 (two major versions)
+  - `rollup-plugin-typescript2` 0.36.0 -> 0.37.0 (adds rollup v4 support)
+  - `@rollup/plugin-babel` 6.x -> 7.x
+  - `@babel/core` 7.21.4 -> 7.29.0
+  - `@rollup/plugin-commonjs` -> 29.0.2
+  - `typescript` 5.0.4 -> 6.0.2
+- Updated `tsconfig.json`:
+  - `moduleResolution` changed from deprecated `node` to `bundler`
+  - Added explicit `rootDir: ./src` (required by TypeScript 6)
+  - Added `skipLibCheck: true` and `noImplicitAny: false` to preserve
+    original project's permissive TypeScript stance
+- Updated GitHub Actions:
+  - `actions/checkout` v4 -> v6
+  - `actions/setup-node` v4 -> v6
+  - Node.js CI version 18 -> 24
+
+---
+
+## [1.0.1] - 2026-03-20
+
+### Changed
+- Standardized console banner colors for consistent appearance
+- Updated release workflow and marked resolved TODO items
+- Renamed readme.md to README.md for standard casing
+- Added HACS validation workflow for default repository submission
+- Added auto-assign workflow for new issues
+- Updated README with badges, project details, and examples
+- Added MIT LICENSE file and updated hacs.json for HACS compliance
+- Removed unnecessary files and directories
+
+---
+
 ## [1.0.0-continued] - 2025-12-01
 
 ### Project Continuation
