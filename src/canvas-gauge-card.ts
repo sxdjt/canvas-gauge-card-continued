@@ -33,17 +33,8 @@
  *  - see https://github.com/custom-cards/canvas-gauge-card
  */
 
-import {
-  LitElement,
-  html,
-  customElement,
-  property,
-  CSSResult,
-  TemplateResult,
-  css,
-  query,
-  PropertyValues,
-} from "lit-element";
+import { LitElement, html, css, CSSResult, TemplateResult, PropertyValues } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
 import Gauge from "canvas-gauges";
 

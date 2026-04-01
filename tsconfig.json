@@ -4,9 +4,12 @@
     "module": "ESNext",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "sourceMap": true,
-    "outDir": "dist"
+    "rootDir": "./src",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*"
