@@ -189,6 +189,7 @@ export class CanvasGaugeCard extends LitElement {
             0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);`
         : ` `}
           display: block !important;
+          height: 100%;
           border-radius: 2px !important;
           transition: all 0.3s ease-out !important;
           background-color: ${this._config.background_color
@@ -287,5 +288,15 @@ export class CanvasGaugeCard extends LitElement {
     event.detail = detail || {};
     this.shadowRoot?.dispatchEvent(event);
     return event;
+  }
+
+  // Sections view (grid layout) sizing - 12-column grid system
+  getGridOptions() {
+    return {
+      rows: 3,
+      columns: 6,
+      min_rows: 2,
+      min_columns: 3,
+    };
   }
 }
