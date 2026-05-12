@@ -46,7 +46,7 @@ import { localize } from "./localize/localize.js";
 export function hasConfigOrEntityChanged(
   element: any,
   changedProps: PropertyValues,
-  forceUpdate: Boolean,
+  forceUpdate: boolean,
 ): boolean {
   if (changedProps.has('config') || forceUpdate) {
     return true;
@@ -136,9 +136,9 @@ export class CanvasGaugeCard extends LitElement {
   }
 
   // Here we need to refresh the actual gauge after it has rendered
-  protected updated(_) {
+  protected updated() {
     if (this._gauge == null) {
-      var gauge;
+      let gauge;
       if (this._config?.gauge.type == "linear-gauge") {
         gauge = new Gauge.LinearGauge({
           renderTo: this._canvasElement,
@@ -156,13 +156,13 @@ export class CanvasGaugeCard extends LitElement {
       }
 
       for (const key in this._config?.gauge) {
-        if (this._config?.gauge?.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(this._config?.gauge, key)) {
           gauge.options[key] = this._config.gauge[key];
         }
       }
       this._gauge = gauge;
     }
-    var entityId = this._config?.entity;
+    const entityId = this._config?.entity;
     this._state = this.hass?.states[entityId!].state;
     this._gauge["value"] = this._state;
     this._gauge.draw(); // Have to call to redraw canvas
@@ -271,7 +271,7 @@ export class CanvasGaugeCard extends LitElement {
 }
 `;
   }
-  clickHandler(_) {
+  clickHandler() {
     this._fire("hass-more-info", { entityId: this._config?.entity });
   }
 
@@ -279,7 +279,7 @@ export class CanvasGaugeCard extends LitElement {
    * Fires the event that opens the enity info
    */
   _fire(type, detail) {
-    var event = new Event(type, {
+    const event = new Event(type, {
       bubbles: true,
       cancelable: false,
       composed: true,

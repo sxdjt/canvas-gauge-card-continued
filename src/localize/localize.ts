@@ -1,7 +1,7 @@
 import * as en from "./languages/en.json";
 import * as sk from "./languages/sk.json";
 
-var languages = {
+const languages = {
   en: en,
   sk: sk,
 };
@@ -18,11 +18,11 @@ export function localize(
     .replace(/['"]+/g, "")
     .replace("-", "_");
 
-  var tranlated: string;
+  let tranlated: string;
 
   try {
     tranlated = languages[lang][section][key];
-  } catch (e) {
+  } catch {
     tranlated = languages["en"][section][key];
   }
 
