@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2026.7.6] - 2026-07-06
+
+### Fixed
+- Sections view sizing: added `getGridOptions()` and `height: 100%` so the card sizes correctly in Home Assistant's sections/grid layout.
+- Removed the unsupported `version` field from `hacs.json` to satisfy the HACS schema.
+
+### Changed
+- Adopted CalVer versioning (`YYYY.M.D`); this release follows 1.1.0.
+- Updated dependencies: lit 3.3.2 -> 3.3.3, rollup 4.60.1 -> 4.62.2, eslint 10.3.0 -> 10.6.0, typescript-eslint 8.59.3 -> 8.63.0, @babel/core 7.29.0 -> 7.29.7 (closes a low-severity, dev-only sourceMappingURL advisory), plus @rollup/plugin-babel and @rollup/plugin-commonjs patch bumps.
+- Added an ESLint configuration and applied code cleanup (var declarations, unused vars, Boolean typing).
+
+---
+
 ## [1.1.0] - 2026-04-06
 
 ### Changed
