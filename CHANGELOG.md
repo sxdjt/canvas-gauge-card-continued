@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Updated `brace-expansion` 5.0.7 -> 5.0.9 in the lockfile, clearing GHSA-mh99-v99m-4gvg
+  (CVE-2026-14257) and GHSA-rgw5-rvv9-x895 (CVE-2026-69152), both high-severity
+  denial-of-service advisories. These were failing the `npm audit` prebuild gate and
+  blocking `npm run build`. Dev-only and transitive via `eslint` -> `minimatch`;
+  brace-expansion is not part of the shipped bundle.
 - Updated `browserslist` 4.28.5 -> 4.28.9 in the lockfile, clearing GHSA-73wf-gq98-2v4g
   (CVE-2026-73088, high severity). A poisoned `browserslist-stats.json` anywhere in the
   directory tree could crash any `browserslist()` call with an uncaught `TypeError`.
