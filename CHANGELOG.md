@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Changed
+- Updated `browserslist` 4.28.5 -> 4.28.9 in the lockfile, clearing GHSA-73wf-gq98-2v4g
+  (CVE-2026-73088, high severity). A poisoned `browserslist-stats.json` anywhere in the
+  directory tree could crash any `browserslist()` call with an uncaught `TypeError`.
+  Dev-only and transitive via `@babel/core`; browserslist is not part of the shipped bundle
+  and `dist/canvas-gauge-card.js` is unchanged.
+
+---
+
 ## [2026.7.6] - 2026-07-06
 
 ### Fixed
