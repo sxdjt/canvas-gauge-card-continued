@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   denial-of-service advisories. These were failing the `npm audit` prebuild gate and
   blocking `npm run build`. Dev-only and transitive via `eslint` -> `minimatch`;
   brace-expansion is not part of the shipped bundle.
+- Updated `brace-expansion` 5.0.9 -> 5.0.12 in the lockfile, clearing GHSA-6j4f-fj2g-mc7p
+  (CVE-2026-102276) and GHSA-qhr7-859c-m2p7 (CVE-2026-102278), both high-severity
+  stack-exhaustion denial-of-service advisories, plus GHSA-q2hr-2g5m-vwhr (CVE-2026-102277,
+  moderate, quadratic-time expansion). Dev-only; `dist/canvas-gauge-card.js` is unchanged.
 - Updated `browserslist` 4.28.5 -> 4.28.9 in the lockfile, clearing GHSA-73wf-gq98-2v4g
   (CVE-2026-73088, high severity). A poisoned `browserslist-stats.json` anywhere in the
   directory tree could crash any `browserslist()` call with an uncaught `TypeError`.
