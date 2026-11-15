@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Some gauge options had no effect: `borders: false` still drew the borders,
+  `animationRule` and `animationDuration` were ignored (every gauge used the `cycle` rule
+  for 500 ms), `tickSide`, `numberSide` and `needleSide` did not move a linear gauge's bar,
+  and out-of-range `startAngle` and `ticksAngle` were not clamped. canvas-gauges applies
+  these only when a gauge is created, and the card set them afterwards. The card now
+  passes every option when it creates the gauge.
+
 ---
 
 ## [2026.11.14-beta.1] - 2026-11-14

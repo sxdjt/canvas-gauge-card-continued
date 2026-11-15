@@ -191,37 +191,34 @@ export class CanvasGaugeCard extends LitElement {
       this._destroyGauge();
     }
     if (this._gauge == null) {
-      let gauge;
-      if (this._config?.gauge.type == "linear-gauge") {
-        gauge = new Gauge.LinearGauge({
-          renderTo: this._canvasElement,
-          height: this._config.gauge["height"],
-          width: this._config.gauge["width"],
-          value: 0,
-        });
-      } else if (this._config?.gauge.type == "radial-gauge") {
-        gauge = new Gauge.RadialGauge({
-          renderTo: this._canvasElement,
-          height: this._config.gauge["height"],
-          width: this._config.gauge["width"],
-          value: 0,
-        });
-      }
-
+      // canvas-gauges applies some options only in its constructor (borders, animationRule,
+      // animationDuration, the linear needle/tick/number sides, radial angle limits), so every
+      // option goes in here. Setting them on gauge.options afterwards silently ignored those
+      const options: Record<string, unknown> = {};
       for (const key in this._config?.gauge) {
         if (Object.prototype.hasOwnProperty.call(this._config?.gauge, key)) {
-          const value = this._config.gauge[key];
+          const value = this._config!.gauge[key];
           if (key.startsWith("color") && !isDrawableColor(value)) {
             continue;
           }
-          gauge.options[key] = value;
+          options[key] = value;
         }
       }
-      if (this._config?.gauge.majorTicks === undefined) {
-        const ticks = defaultMajorTicks(Number(gauge.options.minValue), Number(gauge.options.maxValue));
+      if (options.majorTicks === undefined) {
+        // 0 and 100 are the canvas-gauges defaults
+        const ticks = defaultMajorTicks(Number(options.minValue ?? 0), Number(options.maxValue ?? 100));
         if (ticks) {
-          gauge.options.majorTicks = ticks;
+          options.majorTicks = ticks;
         }
+      }
+      options.renderTo = this._canvasElement;
+      options.value = 0;
+
+      let gauge;
+      if (this._config?.gauge.type == "linear-gauge") {
+        gauge = new Gauge.LinearGauge(options);
+      } else if (this._config?.gauge.type == "radial-gauge") {
+        gauge = new Gauge.RadialGauge(options);
       }
       this._gauge = gauge;
       this._gaugeCanvas = this._canvasElement;
