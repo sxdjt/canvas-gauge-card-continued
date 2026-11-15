@@ -17,6 +17,8 @@ export interface CanvasGuageCardConfig {
   show_error?: boolean;
   gauge?: any;
   font_size?: string;
+  name_color?: string;
+  name_bold?: boolean;
   card_width?: string;
   card_height?: string;
   card_top?: string;

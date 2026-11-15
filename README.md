@@ -79,10 +79,20 @@ gauge:
 | _background_color_ | sets gauge background color, transparent default if not set                                                                        |
 | _card_height_      | the actual height of the card, set to smaller value than gauge height if using a half guage. Not use if using a full circle gauge. |
 | _font_size_        | size of name, leave out it will be dynamic                                                                                         |
+| _name_color_       | color of the name (hex, color name, or `var(--token)`). Default is the theme text color, or white on the shadow bar                |
+| _name_bold_        | `true` to show the name in bold                                                                                                    |
 | _shadow_height_    | xx% of total height is shadow height                                                                                               |
 | _shadow_bottom_    | how far below the gauge in pixels the shadow should apear                                                                          |
 
 For a complete documentation of available properties, please see [Canvas Gauges](https://canvas-gauges.com/documentation/user-guide/configuration).
+
+If `majorTicks` is not set, the card spaces 6 scale labels evenly from `minValue` to `maxValue`.
+
+### Visual editor
+
+Add the card from the card picker, or edit an existing one, to configure it without YAML. The editor has every canvas-gauges option, grouped into Gauge, Scale, Highlights, Needle, Value box, Text, Plate and borders, Bar, Animation, and Card layout sections. Options that apply to only one gauge type are shown only for that type, and each field's helper text gives its default. Per-tick color lists (an array for `colorMajorTicks` or `colorNumbers`) can only be set in YAML; the editor keeps them when you save.
+
+Colors inside the gauge are drawn on a canvas, so they must be a hex code, `rgb()`/`rgba()`, or a color name. Theme variables like `var(--primary-color)` only work for `background_color` and `name_color`.
 
 ## Contributing
 

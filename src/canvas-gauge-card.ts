@@ -41,6 +41,7 @@ import Gauge from "canvas-gauges";
 import { HomeAssistant, CanvasGuageCardConfig } from "./types.js";
 import { CARD_VERSION } from "./const.js";
 import { localize } from "./localize/localize.js";
+import "./editor.js";
 
 // Check if config or Entity changed
 export function hasConfigOrEntityChanged(
@@ -80,10 +81,35 @@ console.info(
   type: "canvas-gauge-card",
   name: "Canvas Gauge Card - Continued",
   description: "Community-maintained canvas gauge card from http://canvas-gauges.com/",
+  preview: true,
+  documentationURL: "https://github.com/sxdjt/canvas-gauge-card-continued",
 });
+
+// canvas-gauges throws on a gradient color it cannot parse (e.g. "#1a" part-typed in the
+// editor) and a canvas cannot draw var(--token), so such colors fall back to the library
+// default. Empty strings ("no gradient") and per-tick color arrays pass through
+function isDrawableColor(value: unknown): boolean {
+  if (typeof value !== "string" || value === "") {
+    return true;
+  }
+  return CSS.supports("color", value) && !value.includes("var(");
+}
+
+// canvas-gauges labels the scale 0-100 whatever minValue and maxValue are, so configs
+// without their own majorTicks get 6 labels spread over the real range
+function defaultMajorTicks(min: number, max: number): number[] | undefined {
+  if (!Number.isFinite(min) || !Number.isFinite(max) || max <= min) {
+    return undefined;
+  }
+  return Array.from({ length: 6 }, (_, i) => Number((min + ((max - min) * i) / 5).toFixed(2)));
+}
 
 @customElement("canvas-gauge-card")
 export class CanvasGaugeCard extends LitElement {
+  public static getConfigElement(): HTMLElement {
+    return document.createElement("canvas-gauge-card-editor");
+  }
+
   // Used by the card picker. setConfig needs a gauge section, so an empty stub would throw
   public static getStubConfig(hass?: HomeAssistant): object {
     const entity = Object.keys(hass?.states ?? {}).find(
@@ -184,7 +210,17 @@ export class CanvasGaugeCard extends LitElement {
 
       for (const key in this._config?.gauge) {
         if (Object.prototype.hasOwnProperty.call(this._config?.gauge, key)) {
-          gauge.options[key] = this._config.gauge[key];
+          const value = this._config.gauge[key];
+          if (key.startsWith("color") && !isDrawableColor(value)) {
+            continue;
+          }
+          gauge.options[key] = value;
+        }
+      }
+      if (this._config?.gauge.majorTicks === undefined) {
+        const ticks = defaultMajorTicks(Number(gauge.options.minValue), Number(gauge.options.maxValue));
+        if (ticks) {
+          gauge.options.majorTicks = ticks;
         }
       }
       this._gauge = gauge;
@@ -242,6 +278,13 @@ export class CanvasGaugeCard extends LitElement {
         </ha-card>
       `;
     }
+    // With a shadow bar the name is drawn over it, in white. Without one, centering the name on a
+    // zero-height bar put it across the bottom of the gauge, and white text vanished on light
+    // themes, so it goes on its own line below the gauge in the theme text color and size
+    const shadowBar = this._shadowHeight !== "0%";
+    const nameStyle = `${this._config.name_color ? `color: ${this._config.name_color};` : ""}`
+      + `${this._config.name_bold ? "font-weight: bold;" : ""}`;
+
     return html`
       <style>
         :host {
@@ -297,6 +340,12 @@ export class CanvasGaugeCard extends LitElement {
           font-size: 100%;
           transform: translate(-50%, -50%);
         }
+        .name {
+          width: ${this._gaugeWidth}px;
+          margin: 0 auto;
+          text-align: center;
+          color: var(--primary-text-color);
+        }
       </style>
       <div class="cardroot">
         <div
@@ -313,12 +362,19 @@ export class CanvasGaugeCard extends LitElement {
             <canvas id="canvaselement"> </canvas>
           </div>
         </div>
-        <div class="shadow">
-          <div class="state" style="font-size: ${this._fontSize}">
-            ${this._config.name}
-          </div>
-        </div>
+        ${shadowBar
+          ? html`
+            <div class="shadow">
+              <div class="state" style="font-size: ${this._fontSize}; ${nameStyle}">
+                ${this._config.name}
+              </div>
+            </div>
+          `
+          : ""}
       </div>
+      ${!shadowBar && this._config.name
+        ? html`<div class="name" style="font-size: ${this._config.font_size ?? "var(--ha-font-size-m, 14px)"}; ${nameStyle}">${this._config.name}</div>`
+        : ""}
     `;
   }
 

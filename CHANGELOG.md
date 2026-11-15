@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Visual editor covering every canvas-gauges 2.1.7 option that can be set in YAML, built on
+  Home Assistant's own form (`ha-form`). Sections: Gauge, Scale, Highlights (an add, edit,
+  reorder and remove list), Needle, Value box, Text (color, size, font, style and weight for
+  the scale labels, value, units and title, plus the card name), Plate and borders, Bar,
+  Animation, and Card layout. Radial-only and linear-only options appear only for that gauge
+  type, and helper text gives each option's default. An invalid color shows an error naming
+  the field above its section. Per-tick color lists stay YAML-only, and any option the editor
+  does not show is kept when it saves. Editor labels are in English; Norwegian and Slovak fall
+  back to English until translated.
+- The card picker shows a live preview of the card, and the editor's help icon links to the
+  documentation.
+- `name_color` and `name_bold` options for the card name.
+
 ### Changed
 - Updated `brace-expansion` 5.0.7 -> 5.0.9 in the lockfile, clearing GHSA-mh99-v99m-4gvg
   (CVE-2026-14257) and GHSA-rgw5-rvv9-x895 (CVE-2026-69152), both high-severity
@@ -38,6 +52,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   "Entity not found: <entity>".
 - An unknown `gauge.type` (including one partly typed in the YAML editor) crashed the card. It now
   shows a warning naming the two valid types.
+- Scale labels always read 0-100 when `majorTicks` was not set, whatever `minValue` and
+  `maxValue` were (canvas-gauges does not derive them from the range). Without `majorTicks`, the
+  card now spaces 6 labels evenly from minimum to maximum. Configs that set `majorTicks`, or use
+  the 0-100 default range, look the same as before.
+- Without `shadow_height`, the name was centered on the card's bottom edge, overlapping the
+  bottom of the gauge, and was drawn in white, which was invisible on light themes. It now sits
+  on its own line below the gauge in the theme's text color and size (`font_size` still
+  overrides it). Configs with `shadow_height` keep the name on the shadow bar as before.
+- A gradient color canvas-gauges could not parse (a typo, or `var(--token)`) threw an error and
+  stopped the gauge from drawing. Invalid colors now fall back to the canvas-gauges default.
 - The warning box's yellow background never applied (`background - color` typo), leaving black
   text on the theme background, which was unreadable on dark themes.
 
