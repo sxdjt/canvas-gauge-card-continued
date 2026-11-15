@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [2026.11.14-beta.1] - 2026-11-14
+
 ### Added
 - Visual editor covering every canvas-gauges 2.1.7 option that can be set in YAML, built on
   Home Assistant's own form (`ha-form`). Sections: Gauge, Scale, Highlights (an add, edit,
