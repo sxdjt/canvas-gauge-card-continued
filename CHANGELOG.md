@@ -3,11 +3,15 @@
 All notable changes to this continuation project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) with a `-continued` suffix.
+and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier releases used Semantic Versioning.
 
 ---
 
 ## [Unreleased]
+
+---
+
+## [2026.11.15-beta.1] - 2026-11-15
 
 ### Fixed
 - Some gauge options had no effect: `borders: false` still drew the borders,
@@ -16,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and out-of-range `startAngle` and `ticksAngle` were not clamped. canvas-gauges applies
   these only when a gauge is created, and the card set them afterwards. The card now
   passes every option when it creates the gauge.
+
+### Changed
+- The built `canvas-gauge-card.js` no longer starts with tslib's license comment. tslib's
+  0BSD license does not require it.
 
 ---
 
@@ -267,7 +275,7 @@ For reference, the original project's release history:
   - Various maintenance updates (#57)
   - Localization updates (Slovak, #61)
 
-- **Earlier versions** - See [original RELEASENOTES.md](RELEASENOTES.md) for complete history
+- **Earlier versions** - See [original RELEASENOTES.md](https://github.com/custom-cards/canvas-gauge-card/blob/master/RELEASENOTES.md) for complete history
 
 ---
 
@@ -282,4 +290,4 @@ For reference, the original project's release history:
 
 ---
 
-**Note**: This changelog documents changes made to the "Continued" version. The original project's release notes are preserved in [RELEASENOTES.md](RELEASENOTES.md).
+**Note**: This changelog documents changes made to the "Continued" version. The original project's release notes are in the original repository's [RELEASENOTES.md](https://github.com/custom-cards/canvas-gauge-card/blob/master/RELEASENOTES.md).

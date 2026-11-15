@@ -2,7 +2,7 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/sxdjt/canvas-gauge-card-continued?style=for-the-badge)
 [![AI Assisted](https://img.shields.io/badge/AI-Claude%20Code-AAAAAA.svg?style=for-the-badge)](https://claude.ai/code)
-![GitHub License](https://img.shields.io/github/license/sxdjt/horizontal-waterfall-history-card?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/sxdjt/canvas-gauge-card-continued?style=for-the-badge)
 
 ---
 
