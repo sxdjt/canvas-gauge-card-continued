@@ -48,7 +48,7 @@ export function hasConfigOrEntityChanged(
   changedProps: PropertyValues,
   forceUpdate: boolean,
 ): boolean {
-  if (changedProps.has('config') || forceUpdate) {
+  if (changedProps.has('_config') || forceUpdate) {
     return true;
   }
 
@@ -84,8 +84,21 @@ console.info(
 
 @customElement("canvas-gauge-card")
 export class CanvasGaugeCard extends LitElement {
-  public static getStubConfig(): object {
-    return {};
+  // Used by the card picker. setConfig needs a gauge section, so an empty stub would throw
+  public static getStubConfig(hass?: HomeAssistant): object {
+    const entity = Object.keys(hass?.states ?? {}).find(
+      (id) => id.startsWith("sensor.") && !isNaN(parseFloat(hass!.states[id].state))
+    );
+    return {
+      ...(entity ? { entity } : {}),
+      gauge: {
+        type: "radial-gauge",
+        width: 220,
+        height: 220,
+        minValue: 0,
+        maxValue: 100,
+      },
+    };
   }
 
   @property() public hass?: HomeAssistant;
@@ -98,6 +111,7 @@ export class CanvasGaugeCard extends LitElement {
   private _useDropshadow?: boolean;
 
   private _gauge?: any;
+  private _gaugeCanvas?: HTMLCanvasElement;
   private _state?: string;
   private config?: any;
 
@@ -106,6 +120,9 @@ export class CanvasGaugeCard extends LitElement {
   public setConfig(config: CanvasGuageCardConfig): void {
     if (!config || config.show_error) {
       throw new Error(localize("common.invalid_configuration"));
+    }
+    if (!config.gauge) {
+      throw new Error(localize("common.missing_gauge"));
     }
     // Have no ide why I need to do this or the thing bugs in .. but I do
     this.config = config;
@@ -136,7 +153,17 @@ export class CanvasGaugeCard extends LitElement {
   }
 
   // Here we need to refresh the actual gauge after it has rendered
-  protected updated() {
+  protected updated(changedProps: PropertyValues) {
+    // No canvas while a warning is shown in place of the gauge
+    if (!this._canvasElement) {
+      this._destroyGauge();
+      return;
+    }
+    // Rebuild on config change or when render replaced the canvas, so gauge
+    // option edits show without a page reload
+    if (changedProps.has("_config") || this._gaugeCanvas !== this._canvasElement) {
+      this._destroyGauge();
+    }
     if (this._gauge == null) {
       let gauge;
       if (this._config?.gauge.type == "linear-gauge") {
@@ -161,12 +188,20 @@ export class CanvasGaugeCard extends LitElement {
         }
       }
       this._gauge = gauge;
+      this._gaugeCanvas = this._canvasElement;
     }
     const entityId = this._config?.entity;
-    this._state = this.hass?.states[entityId!].state;
+    this._state = this.hass?.states[entityId!]?.state;
     this._gauge["value"] = this._state;
     this._gauge.draw(); // Have to call to redraw canvas
   }
+
+  private _destroyGauge(): void {
+    this._gauge?.destroy();
+    this._gauge = undefined;
+    this._gaugeCanvas = undefined;
+  }
+
   protected render(): TemplateResult | void {
     if (!this._config || !this.hass) {
       return html``;
@@ -178,6 +213,32 @@ export class CanvasGaugeCard extends LitElement {
       return html`
         <ha-card>
           <div class="warning">${localize("common.show_warning")}</div>
+        </ha-card>
+      `;
+    }
+
+    // Blank or unknown entity (e.g. mid-edit in the card editor) shows a warning instead of crashing
+    const entityId = this._config.entity;
+    if (!entityId || !this.hass.states[entityId]) {
+      return html`
+        <ha-card>
+          <div class="warning">
+            ${entityId
+          ? localize("common.entity_not_found", "{entity}", entityId)
+          : localize("common.no_entity")}
+          </div>
+        </ha-card>
+      `;
+    }
+
+    // Unknown gauge type (e.g. partly typed in the YAML editor) would leave updated() with no gauge
+    const gaugeType = this._config.gauge.type;
+    if (gaugeType != "radial-gauge" && gaugeType != "linear-gauge") {
+      return html`
+        <ha-card>
+          <div class="warning">
+            ${localize("common.invalid_gauge_type")}${gaugeType ? `: ${gaugeType}` : ""}
+          </div>
         </ha-card>
       `;
     }
@@ -266,7 +327,7 @@ export class CanvasGaugeCard extends LitElement {
     .warning {
   display: block;
   color: black;
-  background - color: #fce588;
+  background-color: #fce588;
   padding: 8px;
 }
 `;

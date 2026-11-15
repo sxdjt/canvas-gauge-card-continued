@@ -25,6 +25,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Dev-only and transitive via `@babel/core`; browserslist is not part of the shipped bundle
   and `dist/canvas-gauge-card.js` is unchanged.
 
+### Fixed
+- Adding the card from the card picker threw a `TypeError` because `getStubConfig()` returned
+  an empty config with no `gauge` section. The stub now has a radial gauge and picks the first
+  numeric sensor. A config without `gauge` now shows "Missing required gauge section".
+- Gauge option changes (including switching between radial and linear) never reached an
+  already-drawn gauge, so the YAML editor preview stayed stale until a page reload. The gauge is
+  now rebuilt when the config changes.
+- `shouldUpdate` checked a `config` property that is never set, so config changes only re-rendered
+  on the next entity state change.
+- A blank or unknown entity crashed the card. It now shows "No entity configured" or
+  "Entity not found: <entity>".
+- An unknown `gauge.type` (including one partly typed in the YAML editor) crashed the card. It now
+  shows a warning naming the two valid types.
+- The warning box's yellow background never applied (`background - color` typo), leaving black
+  text on the theme background, which was unreadable on dark themes.
+
 ---
 
 ## [2026.7.6] - 2026-07-06

@@ -2,6 +2,10 @@
     "common": {
         "version": "Version",
         "invalid_configuration": "Invalid configuration",
-        "show_warning": "Show Warning"
+        "show_warning": "Show Warning",
+        "missing_gauge": "Missing required gauge section",
+        "no_entity": "No entity configured",
+        "entity_not_found": "Entity not found: {entity}",
+        "invalid_gauge_type": "Gauge type must be \"radial-gauge\" or \"linear-gauge\""
     }
 }

@@ -3,6 +3,10 @@
     "common": {
         "version": "Versjon",
         "invalid_configuration": "Ugyldig konfigurasjon",
-        "show_warning": "Vis advarsel"
+        "show_warning": "Vis advarsel",
+        "missing_gauge": "Mangler påkrevd gauge-seksjon",
+        "no_entity": "Ingen entitet er konfigurert",
+        "entity_not_found": "Fant ikke entitet: {entity}",
+        "invalid_gauge_type": "Gauge-typen må være \"radial-gauge\" eller \"linear-gauge\""
     }
 }
