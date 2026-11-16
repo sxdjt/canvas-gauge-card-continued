@@ -11,6 +11,21 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ---
 
+## [2026.11.15-beta.2] - 2026-11-15
+
+### Fixed
+- The gauge could only be opened with a mouse. It is now a keyboard button (Tab to reach,
+  Enter or Space to open the entity's details) with a visible focus ring, and clicking the
+  name on the shadow bar opens the details too.
+- Screen readers got nothing from the gauge, since the value is only drawn on a canvas. The
+  gauge button is now named with the card name, value and unit.
+- The editor did not check highlight colors, so an invalid one was silently ignored. It now
+  shows an error naming the highlight.
+- The white name on the shadow bar was 3.9:1 against the default white gauge plate. The
+  shadow is now slightly darker (`rgba(0, 0, 0, 0.6)`, was 0.5), giving 5.7:1.
+
+---
+
 ## [2026.11.15-beta.1] - 2026-11-15
 
 ### Fixed
