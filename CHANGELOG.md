@@ -11,6 +11,14 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ---
 
+## [2026.11.16] - 2026-11-16
+
+### Changed
+- Promoted the visual editor and its fixes from beta to stable. No changes since
+  2026.11.15-beta.2. See the three beta entries below for everything since 2026.7.6.
+
+---
+
 ## [2026.11.15-beta.2] - 2026-11-15
 
 ### Fixed
