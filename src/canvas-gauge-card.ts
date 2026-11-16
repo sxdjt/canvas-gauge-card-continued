@@ -282,6 +282,12 @@ export class CanvasGaugeCard extends LitElement {
     const nameStyle = `${this._config.name_color ? `color: ${this._config.name_color};` : ""}`
       + `${this._config.name_bold ? "font-weight: bold;" : ""}`;
 
+    // The value is only drawn on the canvas, so the gauge button carries it as text
+    const stateObj = this.hass.states[entityId];
+    const label = this._config.name ?? stateObj.attributes?.friendly_name ?? entityId;
+    const unit = this._config.gauge.units ?? stateObj.attributes?.unit_of_measurement;
+    const ariaLabel = `${label}: ${stateObj.state}${unit ? ` ${unit}` : ""}`;
+
     return html`
       <style>
         :host {
@@ -305,6 +311,11 @@ export class CanvasGaugeCard extends LitElement {
           );
           position: relative;
           margin: auto;
+          cursor: pointer;
+        }
+        .cardroot:focus-visible {
+          outline: 2px solid var(--primary-text-color);
+          outline-offset: 2px;
         }
         .container {
           width: ${this._gaugeWidth}px;
@@ -325,7 +336,8 @@ export class CanvasGaugeCard extends LitElement {
           height: ${this._shadowHeight};
           left: 0px;
           bottom: 0px;
-          background: rgba(0, 0, 0, 0.5);
+          /* 0.6 keeps the white name at 5.7:1 over the default white plate (0.5 was 3.9:1) */
+          background: rgba(0, 0, 0, 0.6);
           position: absolute;
         }
         .state {
@@ -344,7 +356,15 @@ export class CanvasGaugeCard extends LitElement {
           color: var(--primary-text-color);
         }
       </style>
-      <div class="cardroot">
+      <div
+        class="cardroot"
+        role="button"
+        tabindex="0"
+        aria-haspopup="dialog"
+        aria-label=${ariaLabel}
+        @click=${this.clickHandler}
+        @keydown=${this._handleKeydown}
+      >
         <div
           class="container"
           width=${this._gaugeWidth}
@@ -354,9 +374,8 @@ export class CanvasGaugeCard extends LitElement {
             class="innercontainer"
             width=${this._gaugeWidth}
             height=${this._gaugeHeight}
-            @click=${this.clickHandler}
           >
-            <canvas id="canvaselement"> </canvas>
+            <canvas id="canvaselement" aria-hidden="true"> </canvas>
           </div>
         </div>
         ${shadowBar
@@ -387,6 +406,16 @@ export class CanvasGaugeCard extends LitElement {
   }
   clickHandler() {
     this._fire("hass-more-info", { entityId: this._config?.entity });
+  }
+
+  // Enter or Space opens more-info, as a click does
+  private _handleKeydown(e: KeyboardEvent): void {
+    if (e.key !== "Enter" && e.key !== " ") {
+      return;
+    }
+    // Space would otherwise scroll the page
+    e.preventDefault();
+    this.clickHandler();
   }
 
   /**

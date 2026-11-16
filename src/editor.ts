@@ -277,6 +277,14 @@ export class CanvasGaugeCardEditor extends LitElement {
         .filter((name) => name.startsWith("color") || name === "name_color")
         .filter((name) => isInvalidColor(data[name], name === "name_color"))
         .map((name) => this._colorError(name, name === "name_color"));
+      if (key === "gauge_highlights" && Array.isArray(data.highlights)) {
+        data.highlights.forEach((highlight: any, i: number) => {
+          if (isInvalidColor(highlight?.color, false)) {
+            const field = localize("editor.highlight_color_numbered", "{n}", String(i + 1));
+            messages.push(localize("editor.gauge_color_error", "{field}", field));
+          }
+        });
+      }
       if (messages.length > 0) {
         errors[key] = messages;
       }

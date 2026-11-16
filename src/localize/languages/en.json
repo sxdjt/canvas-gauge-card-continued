@@ -80,6 +80,7 @@
         "highlight_from": "From",
         "highlight_to": "To",
         "highlight_color": "Color",
+        "highlight_color_numbered": "Highlight {n} color",
         "needle": "Show needle",
         "needleShadow": "Needle shadow",
         "needleType": "Needle type",

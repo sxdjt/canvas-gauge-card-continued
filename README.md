@@ -90,7 +90,7 @@ If `majorTicks` is not set, the card spaces 6 scale labels evenly from `minValue
 
 ### Visual editor
 
-Add the card from the card picker, or edit an existing one, to configure it without YAML. The editor has every canvas-gauges option, grouped into Gauge, Scale, Highlights, Needle, Value box, Text, Plate and borders, Bar, Animation, and Card layout sections. Options that apply to only one gauge type are shown only for that type, and each field's helper text gives its default. Per-tick color lists (an array for `colorMajorTicks` or `colorNumbers`) can only be set in YAML; the editor keeps them when you save.
+Add the card from the card picker, or edit an existing one, to configure it without YAML. The editor has every canvas-gauges option, grouped into Gauge, Scale, Highlights, Needle, Value box, Text, Plate and borders, Bar, Animation, and Card layout sections. Options that apply to only one gauge type are shown only for that type, and each field's helper text gives its default. Per-tick color lists (an array for `colorMajorTicks` or `colorNumbers`) can only be set in YAML; the editor keeps them when you save. The Highlights list editor needs Home Assistant 2025.7 or later; older releases show highlights as a YAML box instead.
 
 Colors inside the gauge are drawn on a canvas, so they must be a hex code, `rgb()`/`rgba()`, or a color name. Theme variables like `var(--primary-color)` only work for `background_color` and `name_color`.
 
