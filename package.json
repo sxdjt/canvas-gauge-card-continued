@@ -46,7 +46,7 @@
   },
   "type": "module",
   "scripts": {
-    "prebuild": "npm audit --audit-level=high",
+    "prebuild": "node scripts/audit-gate.js",
     "build-debug": "rollup -c -m inline",
     "build": "rollup -c",
     "lint": "eslint src"
