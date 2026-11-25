@@ -9,6 +9,10 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ## [Unreleased]
 
+### Security
+- Updated development dependencies to resolve Dependabot and `npm audit` advisories. None of these packages are bundled into the card:
+  - minimatch 10.2.5 -> 11.0.9 (via eslint and typescript-eslint): denial of service via globparts amplification (GHSA-g3hv-75wg-m249).
+
 ---
 
 ## [2026.11.16] - 2026-11-16
