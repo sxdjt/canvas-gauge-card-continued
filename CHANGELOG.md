@@ -11,6 +11,7 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ### Fixed
 - Sections view: the card was a fixed 3 rows tall (about 184px), so a 220px gauge ran over the card below. The card is now as tall as the gauge.
+- Masonry view: the card did not report its height, so Home Assistant counted every gauge as the smallest card and could stack several in one column. It now reports the gauge height, plus the name line.
 
 ### Security
 - Updated development dependencies to resolve Dependabot and `npm audit` advisories. None of these packages are bundled into the card:

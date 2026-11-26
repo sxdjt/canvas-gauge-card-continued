@@ -433,6 +433,15 @@ export class CanvasGaugeCard extends LitElement {
     return event;
   }
 
+  // Masonry view sizing, in 50px units. Without it HA counted every gauge as 1 unit and
+  // stacked several tall gauges in one column. The name goes on its own line below the
+  // gauge when there is no shadow bar
+  public getCardSize(): number {
+    const height = Number(this._gaugeHeight) + Number(this._config?.shadow_bottom ?? 0);
+    const nameLine = this._shadowHeight === "0%" && this._config?.name ? 1 : 0;
+    return (Number.isFinite(height) && height > 0 ? Math.ceil(height / 50) : 1) + nameLine;
+  }
+
   // Sections view (grid layout) sizing - 12-column grid system. The gauge is a fixed number
   // of pixels tall, so the card takes the height of its content: a fixed 3 rows (about 184px)
   // let the default 220px gauge spill over the card below

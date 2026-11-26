@@ -14,14 +14,19 @@ test("C1: the sections view sizes the card to the gauge, not a fixed 3 rows", as
   card.remove();
 });
 
-test("C2: masonry gets the card's height in 50px units", { todo: true }, async () => {
+test("C2: masonry gets the card's height in 50px units", async () => {
   const full = await makeCard({});
   assert.equal(typeof full.getCardSize, "function");
   assert.equal(full.getCardSize(), 5, "220px gauge");
   const half = await makeCard({ card_height: 145, shadow_bottom: 10, gauge: { ...RADIAL } });
   assert.equal(half.getCardSize(), 4, "card_height 145 + shadow_bottom 10");
-  full.remove();
-  half.remove();
+  const named = await makeCard({ name: "CPU" });
+  assert.equal(named.getCardSize(), 6, "the name line below the gauge");
+  const barred = await makeCard({ name: "CPU", shadow_height: "15%" });
+  assert.equal(barred.getCardSize(), 5, "the name sits on the shadow bar");
+  const sizeless = await makeCard({ gauge: { type: "radial-gauge" } });
+  assert.equal(sizeless.getCardSize(), 1, "no height configured");
+  for (const card of [full, half, named, barred, sizeless]) card.remove();
 });
 
 /* --- DECIDED 2026-11-26 (option a): non-numeric states show as text -------- */
