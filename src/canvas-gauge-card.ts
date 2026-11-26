@@ -34,7 +34,7 @@
  */
 
 import { LitElement, html, css, CSSResult, TemplateResult, PropertyValues } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 
 import Gauge from "canvas-gauges";
 
@@ -145,6 +145,35 @@ export class CanvasGaugeCard extends LitElement {
 
   @query("#canvaselement") private _canvasElement?: any;
 
+  // canvas-gauges draws at a fixed pixel size, so a gauge wider than the space the card
+  // gets (a narrow sections column, a phone) spilled over the card beside it. The gauge
+  // area is zoomed down to fit instead; 1 when it fits
+  @state() private _scale = 1;
+  private _resizeObserver?: ResizeObserver;
+
+  public connectedCallback(): void {
+    super.connectedCallback();
+    if (typeof ResizeObserver !== "undefined") {
+      this._resizeObserver = new ResizeObserver(() => this._fitWidth());
+      this._resizeObserver.observe(this);
+    }
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = undefined;
+  }
+
+  private _fitWidth(): void {
+    const available = this.clientWidth;
+    const wanted = Number(this._gaugeWidth);
+    const scale = available > 0 && wanted > available ? available / wanted : 1;
+    if (Math.abs(scale - this._scale) > 0.001) {
+      this._scale = scale;
+    }
+  }
+
   public setConfig(config: CanvasGuageCardConfig): void {
     if (!config) {
       throw new Error(localize("common.invalid_configuration"));
@@ -174,10 +203,17 @@ export class CanvasGaugeCard extends LitElement {
     this._fontSize = config.font_size
       ? config.font_size
       : `calc(${config.gauge["height"]}px/22)`;
+
+    // A new width (e.g. edited in the editor) refits now; the slot itself did not resize
+    if (this.isConnected) {
+      this._fitWidth();
+    }
   }
 
   protected shouldUpdate(changedProps: PropertyValues): boolean {
-    return hasConfigOrEntityChanged(this, changedProps, false);
+    // _scale's first value (undefined -> 1) is not a resize, so it decides nothing here
+    const rescaled = changedProps.has("_scale") && changedProps.get("_scale") !== undefined;
+    return rescaled || hasConfigOrEntityChanged(this, changedProps, false);
   }
 
   // Here we need to refresh the actual gauge after it has rendered
@@ -315,6 +351,7 @@ export class CanvasGaugeCard extends LitElement {
           position: relative;
           margin: auto;
           cursor: pointer;
+          ${this._scale < 1 ? `zoom: ${this._scale};` : ""}
         }
         .cardroot:focus-visible {
           outline: 2px solid var(--primary-text-color);
@@ -354,6 +391,7 @@ export class CanvasGaugeCard extends LitElement {
         }
         .name {
           width: ${this._gaugeWidth}px;
+          max-width: 100%;
           margin: 0 auto;
           text-align: center;
           color: var(--primary-text-color);

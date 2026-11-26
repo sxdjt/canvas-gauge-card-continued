@@ -20,7 +20,7 @@ npm run coverage
 
 Prints function and branch coverage of `src/` (`scripts/coverage-summary.mjs` reads the lcov report; Node's include filter runs before source maps, so it cannot pick `src/` out of the bundle) and lists every uncovered function and branch line. Line percentages are indicative only: through TypeScript, babel and rollup, comments and imports map as uncovered lines.
 
-Every function and branch in `src/` is covered (card 17 functions / 145 branches, editor 26 / 109, localize 6 branches). Keep it at 100%: a change that adds a function or branch should add the test that covers it.
+Every function and branch in `src/` is covered (card 22 functions / 160 branches, editor 26 / 109, localize 6 branches). Keep it at 100%: a change that adds a function or branch should add the test that covers it.
 
 ## Known issues
 
@@ -34,4 +34,4 @@ Sweep findings live in `hunt.test.mjs`. There are no open `todo` tests.
 |------|--------|
 | `card.test.mjs` | Card picker, stub config, setConfig, README example, change detection, color fallback, default ticks, gauge types, rebuild vs move, warnings, layout and name, aria label, click and keyboard, languages |
 | `editor.test.mjs` | Form data, radial/linear schemas, labels and helpers, color errors, value-changed (sections, defaults, text keys, cleared fields) |
-| `hunt.test.mjs` | Sweep findings C1-C4 |
+| `hunt.test.mjs` | Sweep findings C1-C4, and C5 (found in HA testing) |

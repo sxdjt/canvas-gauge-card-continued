@@ -77,7 +77,7 @@ Card options sit at the top level of the card's YAML:
 | `name`             | none                     | name shown over the shadow bar, or on its own line below the gauge when there is no shadow bar. Leave it out to show no name        |
 | `dropshadow`       | `false`                  | `true` to show a drop shadow around the card                                                                                        |
 | `background_color` | transparent              | card background color                                                                                                               |
-| `card_width`       | `gauge.width`            | width of the card in pixels                                                                                                         |
+| `card_width`       | `gauge.width`            | width of the card in pixels. When the dashboard gives the card less room than this, the gauge is scaled down to fit                 |
 | `card_height`      | `gauge.height`           | height of the card in pixels. Set it smaller than the gauge height for a half gauge; leave it out for a full circle gauge          |
 | `font_size`        | see description          | size of the name. Default: the gauge height / 22 on the shadow bar, the theme's text size below the gauge                           |
 | `name_color`       | theme text color         | color of the name (hex, color name, or `var(--token)`). White on the shadow bar                                                     |

@@ -71,3 +71,62 @@ test("C4: show_error and show_warning are ignored", async () => {
   assert.ok(card.shadowRoot.querySelector("canvas"), "the gauge renders");
   card.remove();
 });
+
+/* --- DECIDED 2026-11-26 (scale to fit): found on the ha-test Variety page --- */
+
+// Stand-in ResizeObserver (jsdom has none): records what is observed and lets a test
+// report a new size by calling observer.fire()
+function installResizeObserver() {
+  const observers = [];
+  class FakeResizeObserver {
+    constructor(callback) { this.callback = callback; this.targets = []; this.disconnected = false; observers.push(this); }
+    observe(target) { this.targets.push(target); }
+    disconnect() { this.disconnected = true; this.targets = []; }
+    fire() { this.callback([]); }
+  }
+  globalThis.ResizeObserver = FakeResizeObserver;
+  return { observers, uninstall: () => { delete globalThis.ResizeObserver; } };
+}
+
+const setWidth = (card, px) => Object.defineProperty(card, "clientWidth", { configurable: true, value: px });
+const cardrootRule = (card) => card.shadowRoot.querySelector("style").textContent
+  .replace(/\s+/g, " ").match(/\.cardroot \{[^}]*\}/)[0];
+
+test("C5: a gauge wider than its slot scales down instead of spilling over the next card", async () => {
+  const ro = installResizeObserver();
+  try {
+    // 320px gauge in a 160px slot: half size
+    const card = await makeCard({ gauge: { ...RADIAL, width: 320, height: 100 } });
+    const observer = ro.observers.at(-1);
+    assert.ok(observer, "the card watches its own width");
+    setWidth(card, 160);
+    observer.fire();
+    await card.updateComplete;
+    assert.match(cardrootRule(card), /zoom: 0\.5;/);
+
+    // Room for the full gauge again: no zoom at all
+    setWidth(card, 400);
+    observer.fire();
+    await card.updateComplete;
+    assert.doesNotMatch(cardrootRule(card), /zoom/);
+
+    // A config change while connected refits right away (the slot did not resize)
+    setWidth(card, 100);
+    card.setConfig({ entity: "sensor.a", gauge: { ...RADIAL, width: 200, height: 100 } });
+    await card.updateComplete;
+    assert.match(cardrootRule(card), /zoom: 0\.5;/);
+
+    card.remove();
+    assert.equal(observer.disconnected, true, "stops watching when removed");
+  } finally {
+    ro.uninstall();
+  }
+});
+
+test("C5: the name line below the gauge never runs wider than the card", async () => {
+  const card = await makeCard({ name: "CPU", gauge: { ...RADIAL, width: 320, height: 100 } });
+  const nameRule = card.shadowRoot.querySelector("style").textContent.replace(/\s+/g, " ")
+    .match(/\.name \{[^}]*\}/)[0];
+  assert.match(nameRule, /max-width: 100%;/);
+  card.remove();
+});

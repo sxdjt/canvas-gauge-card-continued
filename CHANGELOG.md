@@ -16,6 +16,7 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 - Sections view: the card was a fixed 3 rows tall (about 184px), so a 220px gauge ran over the card below. The card is now as tall as the gauge.
 - Masonry view: the card did not report its height, so Home Assistant counted every gauge as the smallest card and could stack several in one column. It now reports the gauge height, plus the name line.
 - An unavailable, unknown or other non-numeric state was drawn as the gauge minimum, so an outage looked like a real reading of 0. The value box now shows the state (e.g. "Unavailable"); the needle rests at the minimum. A `valueText` set in the gauge options comes back once the state is numeric.
+- A gauge wider than the space the dashboard gives the card (a narrow sections column, a phone screen) was drawn at full size and ran over the card beside it. It is now scaled down to fit; a gauge that fits is unchanged. The name below the gauge also stays within the card.
 
 ### Security
 - Updated development dependencies to resolve Dependabot and `npm audit` advisories. None of these packages are bundled into the card:
