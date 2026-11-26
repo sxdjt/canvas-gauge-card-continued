@@ -433,12 +433,13 @@ export class CanvasGaugeCard extends LitElement {
     return event;
   }
 
-  // Sections view (grid layout) sizing - 12-column grid system
+  // Sections view (grid layout) sizing - 12-column grid system. The gauge is a fixed number
+  // of pixels tall, so the card takes the height of its content: a fixed 3 rows (about 184px)
+  // let the default 220px gauge spill over the card below
   getGridOptions() {
     return {
-      rows: 3,
+      rows: "auto",
       columns: 6,
-      min_rows: 2,
       min_columns: 3,
     };
   }

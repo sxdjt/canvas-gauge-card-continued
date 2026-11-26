@@ -9,6 +9,9 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ## [Unreleased]
 
+### Fixed
+- Sections view: the card was a fixed 3 rows tall (about 184px), so a 220px gauge ran over the card below. The card is now as tall as the gauge.
+
 ### Security
 - Updated development dependencies to resolve Dependabot and `npm audit` advisories. None of these packages are bundled into the card:
   - minimatch 10.2.5 -> 11.0.9 (via eslint and typescript-eslint): denial of service via globparts amplification (GHSA-g3hv-75wg-m249).

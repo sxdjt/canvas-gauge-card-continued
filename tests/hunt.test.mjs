@@ -7,7 +7,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { makeCard, makeHass, sensor, RADIAL } from "./helpers/env.mjs";
 
-test("C1: the sections view sizes the card to the gauge, not a fixed 3 rows", { todo: true }, async () => {
+test("C1: the sections view sizes the card to the gauge, not a fixed 3 rows", async () => {
   // 3 rows is about 184px; the default 220px gauge spilled over the card below
   const card = await makeCard({});
   assert.equal(card.getGridOptions().rows, "auto");
