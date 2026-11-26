@@ -264,15 +264,16 @@ export class CanvasGaugeCardEditor extends LitElement {
     return localize(allowVar ? "editor.css_color_error" : "editor.gauge_color_error", "{field}", label);
   }
 
+  // Called from render(), which has returned already without a config
   private _errors(radial: boolean): Record<string, string | string[]> | undefined {
-    if (!this._config) return undefined;
     const errors: Record<string, string | string[]> = {};
-    if (isInvalidColor(this._config.background_color, true)) {
+    if (isInvalidColor(this._config!.background_color, true)) {
       errors.background_color = this._colorError("background_color", true);
     }
     const sections = gaugeSections(radial);
     for (const key of SECTION_KEYS) {
-      const data = this._data[key] ?? {};
+      // willUpdate gives every section a data object
+      const data = this._data[key];
       const messages = fieldNames(sections[key])
         .filter((name) => name.startsWith("color") || name === "name_color")
         .filter((name) => isInvalidColor(data[name], name === "name_color"))

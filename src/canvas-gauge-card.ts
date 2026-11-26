@@ -53,7 +53,9 @@ export function hasConfigOrEntityChanged(
     return true;
   }
 
-  if (element.config!.entity) {
+  // No config before setConfig: HA always calls it first, but an element connected
+  // without one must not throw here
+  if (element.config?.entity) {
     const oldHass = changedProps.get('hass') as HomeAssistant | undefined;
     if (oldHass) {
       return (
@@ -194,10 +196,12 @@ export class CanvasGaugeCard extends LitElement {
       // canvas-gauges applies some options only in its constructor (borders, animationRule,
       // animationDuration, the linear needle/tick/number sides, radial angle limits), so every
       // option goes in here. Setting them on gauge.options afterwards silently ignored those
+      // A canvas means render() had a config with a known gauge type
+      const gaugeConfig = this._config!.gauge;
       const options: Record<string, unknown> = {};
-      for (const key in this._config?.gauge) {
-        if (Object.prototype.hasOwnProperty.call(this._config?.gauge, key)) {
-          const value = this._config!.gauge[key];
+      for (const key in gaugeConfig) {
+        if (Object.prototype.hasOwnProperty.call(gaugeConfig, key)) {
+          const value = gaugeConfig[key];
           if (key.startsWith("color") && !isDrawableColor(value)) {
             continue;
           }
@@ -215,9 +219,10 @@ export class CanvasGaugeCard extends LitElement {
       options.value = 0;
 
       let gauge;
-      if (this._config?.gauge.type == "linear-gauge") {
+      if (gaugeConfig.type == "linear-gauge") {
         gauge = new Gauge.LinearGauge(options);
-      } else if (this._config?.gauge.type == "radial-gauge") {
+      } else {
+        // render() shows a warning for any other type, so this is "radial-gauge"
         gauge = new Gauge.RadialGauge(options);
       }
       this._gauge = gauge;
@@ -403,7 +408,7 @@ export class CanvasGaugeCard extends LitElement {
 `;
   }
   clickHandler() {
-    this._fire("hass-more-info", { entityId: this._config?.entity });
+    this._fire("hass-more-info", { entityId: this._config!.entity });
   }
 
   // Enter or Space opens more-info, as a click does
@@ -427,7 +432,7 @@ export class CanvasGaugeCard extends LitElement {
     }) as any;
 
     event.detail = detail || {};
-    this.shadowRoot?.dispatchEvent(event);
+    this.shadowRoot!.dispatchEvent(event);
     return event;
   }
 
@@ -435,8 +440,9 @@ export class CanvasGaugeCard extends LitElement {
   // stacked several tall gauges in one column. The name goes on its own line below the
   // gauge when there is no shadow bar
   public getCardSize(): number {
-    const height = Number(this._gaugeHeight) + Number(this._config?.shadow_bottom ?? 0);
-    const nameLine = this._shadowHeight === "0%" && this._config?.name ? 1 : 0;
+    // HA asks only after setConfig
+    const height = Number(this._gaugeHeight) + Number(this._config!.shadow_bottom ?? 0);
+    const nameLine = this._shadowHeight === "0%" && this._config!.name ? 1 : 0;
     return (Number.isFinite(height) && height > 0 ? Math.ceil(height / 50) : 1) + nameLine;
   }
 
