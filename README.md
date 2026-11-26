@@ -68,21 +68,34 @@ gauge:
 
 ### Configuration
 
-| Property           | Description                                                                                                                        |
-| :----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| entity             | your sensor                                                                                                                        |
-| name               | shows the name in shadow remove to hide it                                                                                         |
-| type               | `"radial-gauge"` or `"linear-gauge"`                                                                                               |
-| dropshadow         | true to show dropshadow, false to hide                                                                                             |
-| width              | width of the gauge                                                                                                                 |
-| height             | height of the gauge                                                                                                                |
-| _background_color_ | sets gauge background color, transparent default if not set                                                                        |
-| _card_height_      | the actual height of the card, set to smaller value than gauge height if using a half guage. Not use if using a full circle gauge. |
-| _font_size_        | size of name, leave out it will be dynamic                                                                                         |
-| _name_color_       | color of the name (hex, color name, or `var(--token)`). Default is the theme text color, or white on the shadow bar                |
-| _name_bold_        | `true` to show the name in bold                                                                                                    |
-| _shadow_height_    | xx% of total height is shadow height                                                                                               |
-| _shadow_bottom_    | how far below the gauge in pixels the shadow should apear                                                                          |
+Card options sit at the top level of the card's YAML:
+
+| Property           | Default                  | Description                                                                                                                         |
+| :----------------- | :----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `entity`           | required                 | your sensor                                                                                                                         |
+| `gauge`            | required                 | the canvas-gauges options (see below)                                                                                               |
+| `name`             | none                     | name shown over the shadow bar, or on its own line below the gauge when there is no shadow bar. Leave it out to show no name        |
+| `dropshadow`       | `false`                  | `true` to show a drop shadow around the card                                                                                        |
+| `background_color` | transparent              | card background color                                                                                                               |
+| `card_width`       | `gauge.width`            | width of the card in pixels                                                                                                         |
+| `card_height`      | `gauge.height`           | height of the card in pixels. Set it smaller than the gauge height for a half gauge; leave it out for a full circle gauge          |
+| `font_size`        | see description          | size of the name. Default: the gauge height / 22 on the shadow bar, the theme's text size below the gauge                           |
+| `name_color`       | theme text color         | color of the name (hex, color name, or `var(--token)`). White on the shadow bar                                                     |
+| `name_bold`        | `false`                  | `true` to show the name in bold                                                                                                     |
+| `shadow_height`    | `0%` (no bar)            | height of the shadow bar, as a percentage of the card height                                                                        |
+| `shadow_bottom`    | `0`                      | extra space in pixels below the gauge, inside the card                                                                              |
+| `card_top`         | `0`                      | YAML only: moves the gauge down inside the card (a CSS length, e.g. `-20px`)                                                        |
+| `card_left`        | `0`                      | YAML only: moves the gauge right inside the card (a CSS length)                                                                     |
+
+The gauge itself is configured under `gauge:`, with the canvas-gauges option names. These are the
+ones the card needs:
+
+| Property                   | Description                                                   |
+| :------------------------- | ------------------------------------------------------------- |
+| `type`                     | required: `"radial-gauge"` or `"linear-gauge"`                |
+| `width`, `height`          | size of the gauge in pixels                                   |
+| `minValue`, `maxValue`     | scale range; canvas-gauges defaults to 0 and 100              |
+| `units`                    | unit drawn on the gauge; also read out by screen readers      |
 
 For a complete documentation of available properties, please see [Canvas Gauges](https://canvas-gauges.com/documentation/user-guide/configuration).
 
