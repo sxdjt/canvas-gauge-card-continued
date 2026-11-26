@@ -223,9 +223,17 @@ export class CanvasGaugeCard extends LitElement {
       this._gauge = gauge;
       this._gaugeCanvas = this._canvasElement;
     }
-    const entityId = this._config?.entity;
-    this._state = this.hass?.states[entityId!]?.state;
+    // render() only draws the canvas for an entity hass has, so stateObj is set here
+    const stateObj = this.hass!.states[this._config!.entity!];
+    this._state = stateObj.state;
     this._gauge["value"] = this._state;
+    // canvas-gauges draws a non-numeric value (unavailable, unknown) as the minimum, which
+    // reads as a real reading; the value box shows the state instead. Set on options, not
+    // with gauge.update(), whose configure() resets radial angles left out of its argument
+    const numeric = this._state!.trim() !== "" && Number.isFinite(Number(this._state));
+    this._gauge.options.valueText = numeric
+      ? (this._config!.gauge.valueText ?? "")
+      : (this.hass!.formatEntityState?.(stateObj) ?? this._state);
     this._gauge.draw(); // Have to call to redraw canvas
   }
 

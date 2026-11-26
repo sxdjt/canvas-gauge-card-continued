@@ -31,7 +31,7 @@ test("C2: masonry gets the card's height in 50px units", async () => {
 
 /* --- DECIDED 2026-11-26 (option a): non-numeric states show as text -------- */
 
-test("C3: an unavailable entity shows its state in the value box, not the minimum", { todo: true }, async () => {
+test("C3: an unavailable entity shows its state in the value box, not the minimum", async () => {
   const hass = makeHass({ "sensor.a": sensor("unavailable", { friendly_name: "A" }) });
   hass.formatEntityState = (stateObj) => (stateObj.state === "unavailable" ? "Unavailable" : stateObj.state);
   const card = await makeCard({}, hass);
@@ -43,13 +43,24 @@ test("C3: an unavailable entity shows its state in the value box, not the minimu
   card.remove();
 });
 
-test("C3: a configured valueText comes back once the state is numeric", { todo: true }, async () => {
+test("C3: a configured valueText comes back once the state is numeric", async () => {
   const hass = makeHass({ "sensor.a": sensor("unknown") });
   const card = await makeCard({ gauge: { ...RADIAL, valueText: "fixed" } }, hass);
   assert.equal(card._gauge.options.valueText, "unknown", "raw state without formatEntityState");
   card.hass = { ...hass, states: { "sensor.a": sensor("3") } };
   await card.updateComplete;
   assert.equal(card._gauge.options.valueText, "fixed");
+  card.hass = { ...hass, states: { "sensor.a": sensor(" ") } };
+  await card.updateComplete;
+  assert.equal(card._gauge.options.valueText, " ", "a blank state is not the number 0");
+  card.remove();
+});
+
+test("C3: radial angles survive the value text change", async () => {
+  const hass = makeHass({ "sensor.a": sensor("unavailable") });
+  const card = await makeCard({ gauge: { ...RADIAL, startAngle: 90, ticksAngle: 180 } }, hass);
+  assert.equal(card._gauge.options.startAngle, 90);
+  assert.equal(card._gauge.options.ticksAngle, 180);
   card.remove();
 });
 

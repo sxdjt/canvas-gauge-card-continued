@@ -139,6 +139,8 @@ export interface HomeAssistant {
   selectedLanguage: string | null;
   resources: Resources;
   localize: LocalizeFunc;
+  // HA 2023.9+: an entity state as the frontend shows it (translated, with unit)
+  formatEntityState?: (stateObj: any, state?: string) => string;
   translationMetadata: {
     fragments: string[];
     translations: {
