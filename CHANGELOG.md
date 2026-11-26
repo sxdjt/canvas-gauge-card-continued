@@ -9,6 +9,9 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ## [Unreleased]
 
+### Removed
+- `show_error` and `show_warning`, undocumented test switches left over from the 2020 card template (`show_error: true` made the card fail with "Invalid configuration"). A config that still has them keeps working; the keys are ignored.
+
 ### Fixed
 - Sections view: the card was a fixed 3 rows tall (about 184px), so a 220px gauge ran over the card below. The card is now as tall as the gauge.
 - Masonry view: the card did not report its height, so Home Assistant counted every gauge as the smallest card and could stack several in one column. It now reports the gauge height, plus the name line.

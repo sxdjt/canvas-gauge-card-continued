@@ -66,7 +66,7 @@ test("C3: radial angles survive the value text change", async () => {
 
 /* --- DECIDED 2026-11-26 (option a): template debug keys removed ------------ */
 
-test("C4: show_error and show_warning are ignored", { todo: true }, async () => {
+test("C4: show_error and show_warning are ignored", async () => {
   const card = await makeCard({ show_error: true, show_warning: true });
   assert.ok(card.shadowRoot.querySelector("canvas"), "the gauge renders");
   card.remove();

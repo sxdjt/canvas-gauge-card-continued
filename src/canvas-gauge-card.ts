@@ -144,7 +144,7 @@ export class CanvasGaugeCard extends LitElement {
   @query("#canvaselement") private _canvasElement?: any;
 
   public setConfig(config: CanvasGuageCardConfig): void {
-    if (!config || config.show_error) {
+    if (!config) {
       throw new Error(localize("common.invalid_configuration"));
     }
     if (!config.gauge) {
@@ -246,16 +246,6 @@ export class CanvasGaugeCard extends LitElement {
   protected render(): TemplateResult | void {
     if (!this._config || !this.hass) {
       return html``;
-    }
-
-    // Check for stateObj or other necessary things and render a warning if missing
-    // if provided in the future, this is a good spot doing just that :)
-    if (this._config.show_warning) {
-      return html`
-        <ha-card>
-          <div class="warning">${localize("common.show_warning")}</div>
-        </ha-card>
-      `;
     }
 
     // Blank or unknown entity (e.g. mid-edit in the card editor) shows a warning instead of crashing

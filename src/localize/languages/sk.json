@@ -2,7 +2,6 @@
     "common": {
         "version": "Verzia",
         "invalid_configuration": "Chybná konfigurácia",
-        "show_warning": "Zobraziť upozornenie",
         "missing_gauge": "Chýba povinná sekcia gauge",
         "no_entity": "Nie je nastavená žiadna entita",
         "entity_not_found": "Entita sa nenašla: {entity}",

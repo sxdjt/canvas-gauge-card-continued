@@ -13,8 +13,6 @@ import {
 export interface CanvasGuageCardConfig {
   entity?: string;
   name?: string;
-  show_warning?: boolean;
-  show_error?: boolean;
   gauge?: any;
   font_size?: string;
   name_color?: string;
