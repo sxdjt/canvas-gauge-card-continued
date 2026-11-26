@@ -4,4 +4,4 @@ dist
 CLAUDE.md
 claude.md
 .DS_Store
-.vscode/
+.vscode/.test-build/

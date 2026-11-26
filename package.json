@@ -34,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.58.0",
     "eslint": "^10.0.0",
+    "jsdom": "^30.1.3",
     "rollup": "^4.60.1",
     "rollup-plugin-typescript2": "^0.37.0",
     "typescript": "^6.0.2",
@@ -49,6 +50,9 @@
     "prebuild": "node scripts/audit-gate.js",
     "build-debug": "rollup -c -m inline",
     "build": "rollup -c",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test-build": "rollup -c -m inline -d .test-build --silent",
+    "test": "npm run test-build && scripts/run-capped.sh node --test --test-timeout=10000 --test-concurrency=1 tests/",
+    "coverage": "npm run test-build && NODE_OPTIONS=--enable-source-maps scripts/run-capped.sh node --test --test-timeout=10000 --test-concurrency=1 --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=.test-build/lcov.info tests/ && node scripts/coverage-summary.mjs .test-build/lcov.info"
   }
 }
