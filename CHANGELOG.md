@@ -9,6 +9,8 @@ and this project uses calendar versioning (`YYYY.M.D`) from 2026.7.6 on. Earlier
 
 ## [Unreleased]
 
+## [2026.11.26-beta.1] - 2026-11-26 (pre-release)
+
 ### Removed
 - `show_error` and `show_warning`, undocumented test switches left over from the 2020 card template (`show_error: true` made the card fail with "Invalid configuration"). A config that still has them keeps working; the keys are ignored.
 
